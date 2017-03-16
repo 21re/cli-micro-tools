@@ -10,12 +10,20 @@ class Utf8TableSupportSpec extends WordSpec with MustMatchers {
     "basically work" in {
       val tableSupport = new Utf8TableSupport(Sized(5, 5))
 
-      // format: off
-      tableSupport.headerTop mustEqual                            "┌─────┬─────┐"
-      tableSupport.headerBottom mustEqual                         "├─────┼─────┤"
-      tableSupport.contentLine(Sized("1234", "5432")) mustEqual   "│1234 │5432 │"
-      tableSupport.tableFooter mustEqual                          "└─────┴─────┘"
-      // format: on
+      tableSupport.withSingleContentLine(Sized("1", "2")) mustEqual
+        """┌─────┬─────┐
+          |├─────┼─────┤
+          |│1    │2    │
+          |└─────┴─────┘""".stripMargin
+    }
+  }
+
+  implicit class TableResultingOps[N <: Nat](table: Utf8TableSupport[N]) {
+    def withSingleContentLine(line: Sized[Seq[String], N]): String = {
+      s"""${table.headerTop}
+         |${table.headerBottom}
+         |${table.contentLine(line)}
+         |${table.tableFooter}""".stripMargin
     }
 
   }
