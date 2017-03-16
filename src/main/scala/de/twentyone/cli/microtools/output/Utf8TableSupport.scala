@@ -21,9 +21,7 @@ class Utf8TableSupport[N <: Nat](dimensions: Sized[Seq[Int], N]) {
           // with this we accomodate chars that are two byte wide by padding with one less space
           // this will probably be an issue with chars that are three bytes wide
           val additionalLengthDueToWideSymbols = (byteLength - boxInTerminal.length) / 2
-          val boxWithLeadingSpace              = s" $box"
-          String.format(s"%-${length + unrenderedLength + additionalLengthDueToWideSymbols}s",
-                        boxWithLeadingSpace)
+          String.format(s"%-${length + unrenderedLength + additionalLengthDueToWideSymbols}s", box)
       }
       .mkString("│", "│", "│")
 }
