@@ -16,6 +16,16 @@ class Utf8TableSupportSpec extends WordSpec with MustMatchers {
           |│1    │2    │
           |└─────┴─────┘""".stripMargin
     }
+
+    "handle overflow" in {
+      val tableSupport = new Utf8TableSupport(Sized(5, 5))
+
+      tableSupport.withSingleContentLine(Sized("123456789", "2")) mustEqual
+        """┌─────┬─────┐
+          |├─────┼─────┤
+          |│12345│2    │
+          |└─────┴─────┘""".stripMargin
+    }
   }
 
   implicit class TableResultingOps[N <: Nat](table: Utf8TableSupport[N]) {
