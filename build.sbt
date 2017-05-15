@@ -1,5 +1,3 @@
-import org.scalafmt.bootstrap.ScalafmtBootstrap
-
 name := "cli-micro-tools"
 
 organization := "de.21re"
@@ -47,11 +45,8 @@ libraryDependencies ++= Seq(
   "org.mockito"    % "mockito-core"                 % "1.10.19" % Test
 )
 
-val scalafmtTask = taskKey[Unit]("Scala fmt")
-
-scalafmtTask := {
-  org.scalafmt.bootstrap.ScalafmtBootstrap.main(Seq("--non-interactive"))
-  ()
-}
-
-(compile in Compile) := { (compile in Compile) dependsOn scalafmtTask }.value
+/** scalafmt */
+enablePlugins(ScalafmtPlugin)
+scalafmtVersion := "0.6.8"
+(compile in Compile) := { (compile in Compile) dependsOn (scalafmt in Compile).toTask }.value
+(compile in Test) := { (compile in Test) dependsOn (scalafmt in Test).toTask }.value
