@@ -6,10 +6,22 @@ version := {
   "0.1-" + sys.props.get("BUILD_NUMBER").orElse(sys.env.get("BUILD_NUMBER")).getOrElse("SNAPSHOT")
 }
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.3"
+
+crossScalaVersions := Seq("2.12.3", "2.11.11")
 
 scalacOptions ++= Seq(
-  "-deprecation"
+  "-deprecation",
+  "-encoding",
+  "UTF-8",
+  "-feature",
+  "-target:jvm-1.8",
+  "-unchecked",
+  "-Ywarn-adapted-args",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-unused",
+  "-Xfuture",
+  "-Xlint"
 )
 
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
@@ -40,13 +52,10 @@ mainSourcesScalaStyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle
 libraryDependencies ++= Seq(
   "com.chuusai"    %% "shapeless"                   % "2.3.2"   % Provided,
   "ch.qos.logback" % "logback-classic"              % "1.1.7"   % Provided,
-  "org.scalatest"  %% "scalatest"                   % "3.0.1"   % Test,
-  "org.scalamock"  %% "scalamock-scalatest-support" % "3.4.2"   % Test,
-  "org.mockito"    % "mockito-core"                 % "1.10.19" % Test
+  "org.scalatest"  %% "scalatest"                   % "3.0.1"   % Test
 )
 
 /** scalafmt */
 enablePlugins(ScalafmtPlugin)
-scalafmtVersion := "0.6.8"
 (compile in Compile) := { (compile in Compile) dependsOn (scalafmt in Compile).toTask }.value
 (compile in Test) := { (compile in Test) dependsOn (scalafmt in Test).toTask }.value

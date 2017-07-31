@@ -12,6 +12,6 @@ node {
     sbtBuild([cmds: "clean compile test"])
 
     if(publish) {
-      sbtBuild([cmds: "publish"])
+      sbtBuild([cmds: "+publish"])
     }
 }
