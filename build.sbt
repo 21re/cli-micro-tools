@@ -24,6 +24,13 @@ scalacOptions ++= Seq(
   "-Xlint"
 )
 
+libraryDependencies ++= Seq(
+  "com.chuusai"    %% "shapeless"                   % "2.3.2"   % Provided,
+  "ch.qos.logback" % "logback-classic"              % "1.1.7"   % Provided,
+  "org.scalatest"  %% "scalatest"                   % "3.0.1"   % Test
+)
+
+
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 resolvers += "21re-bintray" at "http://dl.bintray.com/21re/public"
@@ -43,19 +50,17 @@ bintrayCredentialsFile := {
 }
 
 lazy val mainSourcesScalaStyle = taskKey[Unit]("mainSourcesScalaStyle")
-mainSourcesScalaStyle := org.scalastyle.sbt.ScalastylePlugin.scalastyle
+mainSourcesScalaStyle := org.scalastyle.sbt.ScalastylePlugin.autoImport.scalastyle
   .in(Compile)
   .toTask("")
   .value
 (test in Test) := { (test in Test) dependsOn mainSourcesScalaStyle }.value
 
-libraryDependencies ++= Seq(
-  "com.chuusai"    %% "shapeless"                   % "2.3.2"   % Provided,
-  "ch.qos.logback" % "logback-classic"              % "1.1.7"   % Provided,
-  "org.scalatest"  %% "scalatest"                   % "3.0.1"   % Test
-)
-
-/** scalafmt */
 enablePlugins(ScalafmtPlugin)
-(compile in Compile) := { (compile in Compile) dependsOn (scalafmt in Compile).toTask }.value
-(compile in Test) := { (compile in Test) dependsOn (scalafmt in Test).toTask }.value
+scalafmtVersion := "0.6.8"
+(compile in Compile) := {
+  (compile in Compile) dependsOn (scalafmt in Compile).toTask
+}.value
+(compile in Test) := {
+  (compile in Test) dependsOn (scalafmt in Test).toTask
+}.value

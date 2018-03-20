@@ -1,7 +1,6 @@
-addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.8.2")
 
-addSbtPlugin("me.lessis" % "bintray-sbt" % "0.3.0")
+addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.1")
 
-addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.9")
+addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.10")
 
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "1.0.0")
