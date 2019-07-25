@@ -14,7 +14,7 @@ class MarkdownTableAutoSupport[N <: Nat](titles: Sized[Seq[String], N]) {
 
     val headerTop = (titles zip dimensions)
       .map {
-        case (box: String, length: Int) ⇒
+        case (box: String, length: Int) =>
           String.format(s"%-${length}s", box)
       }
       .mkString("| ", " | ", " |")
@@ -23,7 +23,7 @@ class MarkdownTableAutoSupport[N <: Nat](titles: Sized[Seq[String], N]) {
     headerTop +: headerBottom +: rows.map { row =>
       (row zip dimensions)
         .map {
-          case (box: String, length: Int) ⇒
+          case (box: String, length: Int) =>
             String.format(s"%-${length}s", box)
         }
         .mkString("| ", " | ", " |")

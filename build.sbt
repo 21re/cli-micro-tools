@@ -6,28 +6,24 @@ version := {
   "0.1-" + sys.props.get("BUILD_NUMBER").orElse(sys.env.get("BUILD_NUMBER")).getOrElse("SNAPSHOT")
 }
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.0"
+scalaVersion in ThisBuild := "2.13.0"
 
-crossScalaVersions := Seq("2.12.3", "2.11.11")
+crossScalaVersions := Seq("2.13.0")
 
 scalacOptions ++= Seq(
   "-deprecation",
-  "-encoding",
-  "UTF-8",
   "-feature",
-  "-target:jvm-1.8",
-  "-unchecked",
-  "-Ywarn-adapted-args",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-unused",
-  "-Xfuture",
-  "-Xlint"
+  "-Ywarn-unused:imports",
+  "-Ywarn-unused:params",
+  "-Ywarn-unused:locals",
+  "-Ywarn-unused:privates"
 )
 
 libraryDependencies ++= Seq(
-  "com.chuusai"    %% "shapeless"                   % "2.3.2"   % Provided,
+  "com.chuusai"    %% "shapeless"                   % "2.3.3"   % Provided,
   "ch.qos.logback" % "logback-classic"              % "1.1.7"   % Provided,
-  "org.scalatest"  %% "scalatest"                   % "3.0.1"   % Test
+  "org.scalatest"            %% "scalatest"                   % "3.0.8" % Test
 )
 
 
