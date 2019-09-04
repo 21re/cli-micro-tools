@@ -19,3 +19,6 @@ project/plugins/project/
 *.iml
 .bintray/
 .ensime*
+
+.bloop
+.metals

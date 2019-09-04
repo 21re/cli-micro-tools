@@ -13,7 +13,7 @@ class Utf8TableSupport[N <: Nat](dimensions: Sized[Seq[Int], N]) {
   def contentLine(sections: Sized[Seq[String], N]): String =
     (sections zip dimensions)
       .map {
-        case (box: String, length: Int) ⇒
+        case (box: String, length: Int) =>
           val boxInTerminal = box.replaceAll("\u001B\\[[\\d;]*[^\\d;]", "")
           val byteLength    = boxInTerminal.getBytes(StandardCharsets.UTF_8).length
           // the amount of chars that are not rendered to a terminal due to being ansi escapes
